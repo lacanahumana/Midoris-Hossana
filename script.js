@@ -692,7 +692,36 @@ function limitarDijes(event) {
 
   let limite = 3;
 
-  if (selectedProduct?.type === "Combo") {
+  // ✅ Midori A6
+  if (selectedProduct?.id === "midori-a6") {
+    limite = 2;
+  }
+
+  // ✅ Cuaderno Cosido
+  if (selectedProduct?.id === "cuaderno-cocido") {
+    limite = 1;
+  }
+
+  // ✅ Midori Regular
+  if (selectedProduct?.id === "midori-regular") {
+    limite = 2;
+  }
+
+  // ✅ Combo A6
+  if (selectedProduct?.id === "Combo-a6") {
+    limite = 2;
+  }
+
+  // ✅ Combo Regular
+  if (selectedProduct?.id === "Combo-regular") {
+    limite = 2;
+  }
+
+  // ✅ A5 y Combo A5 mantienen 3
+  if (
+    selectedProduct?.id === "midori-a5" ||
+    selectedProduct?.id === "Combo-a5"
+  ) {
     limite = 3;
   }
 
@@ -701,6 +730,7 @@ function limitarDijes(event) {
     showToast(`Máximo ${limite} dijes por producto`);
   }
 }
+
 
 function limitarAccesorios(event) {
   if (!selectedProduct || selectedProduct.type !== "Combo") return;
