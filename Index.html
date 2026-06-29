@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hossana - Midoris & Journals</title>
+  <meta name="description" content="Midori y cuadernos personalizados hechos a mano. Elegí cada detalle y realizá tu pedido por WhatsApp." />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="header">
+    <nav class="navbar">
+      <a href="#" class="logo">
+		<img src="img/logo.png" alt="Hossana - Midoris & Journals" class="logo-img" id="logoHeader">
+	  </a>
+
+      <div class="nav-actions">
+        <a href="#categorias" class="nav-link">Productos</a>
+		<a href="#contacto" class="nav-link">Contacto</a>
+        <button class="cart-button" onclick="openCart()">
+          Carrito
+          <span id="cartCount">0</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <span class="eyebrow">Hecho a mano · Personalizado · Premium</span>
+        <h1>Midori y cuadernos creados con atención a cada detalle</h1>
+        <p>
+            Cuidado...
+			<br>
+			Entrás para mirar un ratito y terminás imaginando cómo sería tu Midori perfecta. 🤎✨
+			<br>
+			Empezá a crear la tuya.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#categorias" class="primary-button">Personalizar ahora</a>
+          <button class="secondary-button" onclick="openCart()">Ver carrito</button>
+        </div>
+      </div>
+
+      <div class="hero-card hero-carousel">
+		<button class="carousel-btn carousel-prev" type="button" onclick="changeHeroSlide(-1)">
+			‹
+		</button>
+
+		<img
+			id="heroCarouselImage"
+			src="img/productos/midori-a5.jpg"
+			alt="Producto personalizado Hossana"
+		/>
+
+		<div class="hero-card-info">
+			<span id="heroCarouselLabel">Diseños delicados</span>
+			<strong id="heroCarouselTitle">Personalización completa</strong>
+		</div>
+
+		<button class="carousel-btn carousel-next" type="button" onclick="changeHeroSlide(1)">
+			›
+		</button>
+
+		<div id="heroCarouselDots" class="carousel-dots"></div>
+		</div>
+
+      </div>
+    </section>
+
+    <section id="seccionProductos" class="intro">
+      <h2>Elegí tu producto</h2>
+      <p>
+        Cada pieza se arma especialmente para vos. Seleccioná una categoría y personalizá cada detalle.
+      </p>
+    </section>
+
+    <section id="categorias" class="categories"></section>
+
+    <section id="customizerSection" class="customizer-section hidden">
+      <div class="section-title">
+        <button class="back-button" onclick="goHome()">← Volver</button>
+        <h2 id="productTitle">Personalizá tu producto</h2>
+        <p id="productDescription"></p>
+      </div>
+
+      <div class="customizer-layout">
+        <div class="preview-card">
+			<div class="product-preview-carousel">
+				<button class="preview-carousel-btn preview-carousel-prev" type="button" onclick="changeProductPreviewSlide(-1)">
+					‹
+				</button>
+
+				<img id="productPreview" src="" alt="Vista previa del producto">
+
+				<button class="preview-carousel-btn preview-carousel-next" type="button" onclick="changeProductPreviewSlide(1)">
+					›
+				</button>
+
+				<div id="productPreviewDots" class="preview-carousel-dots"></div>
+			</div>
+
+			<div class="preview-info">
+				<span>Vista previa</span>
+				<h3 id="previewName"></h3>
+				<p id="previewSummary"></p>
+			</div>
+		</div>
+
+        <form id="customizerForm" class="customizer-form">
+          <div id="stepsContainer"></div>
+
+          <div class="price-panel">
+		  <div class="product-preview-carousel">
+				
+				<!-- ✅ Carrusel duplicado SOLO mobile -->
+				<div class="product-preview-carousel mobile-preview-carousel">
+				<button class="preview-carousel-btn preview-carousel-prev" type="button" onclick="changeProductPreviewSlide(-1)">
+					‹
+				</button>
+
+				<img id="productPreviewMobile" src="" alt="Vista previa del producto">
+
+				<button class="preview-carousel-btn preview-carousel-next" type="button" onclick="changeProductPreviewSlide(1)">
+					›
+				</button>
+
+				<div id="productPreviewDotsMobile" class="preview-carousel-dots"></div>
+				</div>
+
+				<div id="productPreviewDots" class="preview-carousel-dots"></div>
+			</div>
+	<div>
+			<span>Precio final</span>
+			<strong id="finalPrice">$0</strong>
+			</div>
+
+				<button type="submit" class="primary-button full-width">
+				Agregar al carrito
+				</button>
+
+					<button type="button" class="secondary-button full-width back-home-btn"
+					onclick="goHome()">
+					Volver y elegir otro producto
+				</button>
+			</div>
+
+        </form>
+      </div>
+    </section>
+	<section id="contacto" class="contact-section">
+  <div class="contact-card">
+
+    <h2>Contacto</h2>
+    <p>
+      ¿Tenés dudas o querés hacer tu pedido de forma directa?  
+      Escribinos y te respondemos a la brevedad.
+    </p>
+
+    <div class="contact-buttons">
+
+      <a 
+        href="https://wa.me/5492284309444?text=Hola!%20Quiero%20consultar%20por%20un%20producto" 
+        target="_blank" 
+        class="contact-btn whatsapp-btn"
+      >
+        WhatsApp
+      </a>
+
+      <a 
+        href="https://www.instagram.com/hossana.midori/" 
+        target="_blank" 
+        class="contact-btn instagram-btn"
+      >
+        Instagram
+      </a>
+
+    </div>
+
+  </div>
+</section>
+  </main>
+
+  <aside id="cartDrawer" class="cart-drawer">
+    <div class="cart-header">
+      <div>
+        <span>Tu pedido</span>
+        <h2>Carrito</h2>
+      </div>
+      <button class="icon-button" onclick="closeCart()">×</button>
+    </div>
+
+    <div id="cartItems" class="cart-items"></div>
+
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <strong id="cartTotal">$0</strong>
+      </div>
+
+      <button class="whatsapp-button" onclick="sendWhatsAppOrder()">
+        Realizar pedido por WhatsApp
+      </button>
+
+      <button class="clear-cart-button" onclick="clearCart()">
+        Vaciar carrito
+      </button>
+    </div>
+  </aside>
+
+  <div id="overlay" class="overlay" onclick="closeCart()"></div>
+
+  <footer class="footer">
+    <div>
+      <h3>Hossana - Midoris & Journals</h3>
+      <p>Productos artesanales personalizados, pensados para acompañar tus ideas.</p>
+    </div>
+
+    <div>
+      <strong>Pedido rápido</strong>
+      <p>Personalizá, agregá al carrito y enviá tu pedido por WhatsApp.</p>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast">Producto agregado al carrito</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
