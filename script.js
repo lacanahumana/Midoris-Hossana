@@ -468,15 +468,27 @@ function renderCustomizerSteps() {
 
   let html = "";
 
-  if (selectedProduct.type === "midori" || selectedProduct.type === "Combo") {
-    html = `
-      ${renderRadioStep("Elegí la funda", "funda", options.fundas, true)}
-      ${renderTextStep("Iniciales personalizadas", "iniciales", "Ej: TC, ML, Ana", "Opcional. Podés dejarlo vacío si no querés iniciales.")}
-      ${renderRadioStep("Elegí el color del elástico", "elastico", options.elasticos, true)}
-      ${renderDijesStep()}
-      ${renderAccesoriosStep()}
-    `;
-  }
+	if (selectedProduct.type === "midori" || selectedProduct.type === "Combo") {
+		html = `
+		${renderRadioStep(
+		"Elegí la funda",
+		"funda",
+		(
+			selectedProduct.id === "midori-regular" ||
+			selectedProduct.id === "Combo-regular"
+		)
+		? options.fundas.filter(f =>
+			["Croco Rosa", "Vaca", "Naranja"].includes(f.name)
+		)
+		: options.fundas,
+		true
+		)}
+		${renderTextStep("Iniciales personalizadas", "iniciales", "Ej: TC, ML, Ana", "Opcional. Podés dejarlo vacío si no querés iniciales.")}
+		${renderRadioStep("Elegí el color del elástico", "elastico", options.elasticos, true)}
+		${renderDijesStep()}
+		${renderAccesoriosStep()}
+		`;
+	}
 
   if (selectedProduct.type === "cuaderno") {
     html = `
