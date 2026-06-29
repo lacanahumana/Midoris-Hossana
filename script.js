@@ -832,7 +832,25 @@ function calculatePrice() {
   return total;
 }    
 
- 
+function getDijesAgrupados() {
+  const resultado = {
+    dorado: [],
+    negro: [],
+    colores: []
+  };
+
+  document.querySelectorAll("input[name='dijes']:checked").forEach(input => {
+    const nombre = input.value;
+
+    Object.entries(options.dijes).forEach(([categoria, items]) => {
+      if (items.some(item => item.name === nombre)) {
+        resultado[categoria].push(nombre);
+      }
+    });
+  });
+
+  return resultado;
+}
 
 
 function updatePrice() {
@@ -850,11 +868,29 @@ function updatePrice() {
   if (data.cierre) summaryParts.push(`Cierre: ${data.cierre}`);
   if (data.elastico) summaryParts.push(`Elástico: ${data.elastico}`);
   if (data.iniciales !== "Sin iniciales") summaryParts.push(`Iniciales: ${data.iniciales}`);
-  if (data.dijes.length) summaryParts.push(`Dijes: ${data.dijes.join(", ")}`);
-  if (data.accesorios.length) summaryParts.push(`Accesorios: ${data.accesorios.join(", ")}`);
-  if (data.marcapaginas) summaryParts.push(`Modelo: ${data.marcapaginas}`);
+  const dijesAgrupados = getDijesAgrupados();
 
-  previewSummary.textContent = summaryParts.length
+	if (dijesAgrupados.negro.length) {
+		summaryParts.push(
+			`Dijes Negro: ${dijesAgrupados.negro.join(", ")}`
+		);
+	}
+
+	if (dijesAgrupados.dorado.length) {
+		summaryParts.push(
+			`Dijes Dorado: ${dijesAgrupados.dorado.join(", ")}`
+		);
+	}
+
+	if (dijesAgrupados.colores.length) {
+		summaryParts.push(
+			`Dijes Colores: ${dijesAgrupados.colores.join(", ")}`
+		);
+	}
+	if (data.accesorios.length) summaryParts.push(`Accesorios: ${data.accesorios.join(", ")}`);
+	if (data.marcapaginas) summaryParts.push(`Modelo: ${data.marcapaginas}`);
+
+	previewSummary.textContent = summaryParts.length
     ? summaryParts.join(" · ")
     : "Configurá cada detalle para crear una pieza única.";
 
@@ -1067,11 +1103,49 @@ function buildItemSummary(item) {
   if (item.cierre) details.push(`Cierre: ${item.cierre}`);
   if (item.elastico) details.push(`Elástico: ${item.elastico}`);
   if (item.iniciales) details.push(`Iniciales: ${item.iniciales}`);
-  if (item.dijes?.length) details.push(`Dijes: ${item.dijes.join(", ")}`);
-  if (item.accesorios?.length) details.push(`Accesorios: ${item.accesorios.join(", ")}`);
-  if (item.marcapaginas) details.push(`Modelo: ${item.marcapaginas}`);
+  if (item.dijes?.length) {
 
-  return details.join(" · ");
+		const agrupados = {
+			dorado: [],
+			negro: [],
+			colores: []
+		};
+
+		item.dijes.forEach(nombre => {
+
+			Object.entries(options.dijes).forEach(([categoria, items]) => {
+
+				if (items.some(item => item.name === nombre)) {
+					agrupados[categoria].push(nombre);
+				}
+
+			});
+
+		});
+
+		if (agrupados.negro.length) {
+			details.push(
+			`Dijes Negro: ${agrupados.negro.join(", ")}`
+			);
+		}
+
+		if (agrupados.dorado.length) {
+			details.push(
+				`Dijes Dorado: ${agrupados.dorado.join(", ")}`
+			);
+		}
+
+		if (agrupados.colores.length) {
+			details.push(
+				`Dijes Colores: ${agrupados.colores.join(", ")}`
+			);
+		}
+
+	}
+	if (item.accesorios?.length) details.push(`Accesorios: ${item.accesorios.join(", ")}`);
+	if (item.marcapaginas) details.push(`Modelo: ${item.marcapaginas}`);
+
+	return details.join(" · ");
 }
 
 function removeFromCart(id) {
@@ -1120,7 +1194,20 @@ function sendWhatsAppOrder() {
   message += "Quedo atenta/o para coordinar detalles, disponibilidad y forma de entrega.";
 
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
-  window.open(whatsappUrl, "_blank");
+  if (confirm("¿Abrir WhatsApp y finalizar el pedido?")) {
+
+		window.open(whatsappUrl, "_blank");
+
+		cart = [];
+		saveCart();
+		updateCartUI();
+		closeCart();
+		
+		// ✅ Volver al inicio
+		goHome();
+
+		showToast("Pedido enviado. Carrito vaciado");
+	}
 }
 
 // ===============================
